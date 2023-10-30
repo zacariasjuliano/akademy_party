@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+<!-- GRUPO DE PERMIÇÕES PARA USUÁRIOS ADMINISTRADORES -->
+<tryton>
+    <data>
+        <record model="ir.ui.menu-res.group" 
+            id="menu_party-group_party_admin">
+            <field name="menu" ref="akademy_party"/>
+            <field name="group" ref="group_party_admin"/>
+        </record>
+
+        <!-- grant access -->
+        <!-- start party -->
+            <record model="ir.model.access" id="access_akademy_entities">
+                <field name="model" search="[('model', '=', 'party.party')]"/>
+                <field name="group" ref="group_akademy_party"/>
+                <field name="perm_read" eval="True"/>
+                <field name="perm_write" eval="True"/>
+                <field name="perm_create" eval="True"/>
+                <field name="perm_delete" eval="True"/>
+            </record>
+            <!-- access rule group -->
+            <record model="ir.rule.group" id="rule_group_akademy_entities">
+                <field name="name">Entidades</field>
+                <field name="model" 
+                    search="[('model', '=', 'party.party')]"/>
+                <field name="global_p" eval="False"/>
+                <field name="default_p" eval="False"/>
+                <field name="perm_read" eval="True"/>
+                <field name="perm_write" eval="True"/>
+                <field name="perm_create" eval="True"/>
+                <field name="perm_delete" eval="True"/>
+            </record>
+            <!--
+            <record model="ir.rule" id="rule_group_akademy_entities_line1">
+                <field name="domain" pyson="1" 
+                    eval="[('company', '=', Eval('user', {}).get('company', None))]" />
+                <field name="rule_group" ref="rule_group_akademy_entities"/>
+            </record>
+            -->
+            <record model="ir.rule.group-res.group" 
+                    id="rule_group_akademy_entities-group_akademy_admin">
+                <field name="rule_group" ref="rule_group_akademy_entities"/>
+                <field name="group" ref="group_akademy_party"/>
+            </record>
+        <!-- end party -->        
+    </data>
+</tryton>

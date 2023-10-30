@@ -2,6 +2,27 @@ from trytond.model import fields
 from trytond.pool import PoolMeta
 from trytond.pyson import Eval, Not, Bool
 
+
+_GENDER = [
+        (None, ''),
+        ('masculino', 'Masculino'), ('femenino', 'Femenino'),
+        ('nao_binário', 'Não-Binário'), ('genero_fluido', 'Gênero Fluído'),
+        ('agenero', 'Agênero'), ('transgenero', 'Transgênero'),
+        ('bigenero', 'Bigenero'), ('generoqueer', 'Gêneroqueer'),
+        ('two_spirit', 'Two-Spirit'), ('pangenero', 'Pangênero')
+    ]
+
+_MARITALSTATUS =  [
+        (None, ''),
+        ('solteiro(a)', 'Solteiro(a)'), ('casado(a)', 'Casado(a)'),
+        ('divorciado(a)', 'Divorciado(a)'), ('viuvo(a)', 'Víuvo(a)'),
+        ('separado(a)', 'Separado(a)'), ('uniao_estavel', 'União Estável'),
+        ('relacionamento_aberto', 'Relacionamento Aberto'), ('relacao_domestica_registrada', 'Relação Doméstica Registrada'),
+        ('casamento_de_fato', 'Casamento de Fato'), ('casamento_civil', 'Casamento Civil'),
+        ('casamento_religioso', 'Casamento Religioso')
+    ] 
+
+
 class Party(metaclass=PoolMeta):
     'Party'
     __name__= 'party.party'
@@ -26,20 +47,13 @@ class Party(metaclass=PoolMeta):
         states={
             'invisible': Not(Bool(Eval('is_person'))), 
             'required': Bool(Eval('is_person'))            
-        }, help="Data de nascimento.")    
-    gender = fields.Selection([
-            (None, ''),
-            ('Masculino', 'Masculino'), ('Femenino', 'Femenino') 
-        ], string=u'Genêro',         
+        }, help="Data de nascimento.\nEx: dia-mês-ano")    
+    gender = fields.Selection(_GENDER, string=u'Gênero',         
         states={
             'invisible': Not(Bool(Eval('is_person'))), 
             'required': Bool(Eval('is_person'))
         })
-    marital_status = fields.Selection([
-            (None, ''),
-            ('Solteiro(a)', 'Solteiro(a)'), ('Casado(a)', 'Casado(a)'),
-            ('Divorciado(a)', 'Divorciado(a)'), ('Víuvo(a)', 'Víuvo(a)')
-        ], string=u'Estado civil', 
+    marital_status = fields.Selection(_MARITALSTATUS, string=u'Estado civil', 
         states={
             'invisible': Not(Bool(Eval('is_person'))), 
             'required': Bool(Eval('is_person'))
