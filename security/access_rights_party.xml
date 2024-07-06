@@ -2,10 +2,24 @@
 <!-- GRUPO DE PERMIÇÕES PARA USUÁRIOS ADMINISTRADORES -->
 <tryton>
     <data>
+        <!-- Criar o grupo de usuários discente -->
+        <record model="res.group" id="group_akademy_party">
+            <field name="name">Akademy Party</field>
+        </record>
+
+        <!-- Atribui o usuário Administrador do Tryton
+         ao grupo de usuários Party Akademy -->
+        <record model="res.user-res.group" 
+            id="user_admin-group_akademy_party">
+            <field name="user" ref="res.user_admin"/>
+            <field name="group" ref="group_akademy_party"/>
+        </record>
+
+        <!-- Acesso ao menu PARTY -->
         <record model="ir.ui.menu-res.group" 
-            id="menu_party-group_party_admin">
+            id="menu_party-group_akademy_party">
             <field name="menu" ref="akademy_party"/>
-            <field name="group" ref="group_party_admin"/>
+            <field name="group" ref="group_akademy_party"/>
         </record>
 
         <!-- grant access -->
